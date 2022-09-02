@@ -9,21 +9,24 @@ import seaborn as sns
 
 from comm_data import *
 
+from model import *
 
-def scatterplot_efficiency_date(dt, com, eff):
 
-    dt['DateTime'] = pd.to_datetime(dt['DateTime'])
 
-    dt = dt.sort_values(by=['DateTime'])
+def scatterplot_efficiency_date(dataframe, com, eff):
 
-    dt = dt[["DateTime", "Efficiency"]].reset_index(drop=True)
+    dataframe['DateTime'] = pd.to_datetime(dataframe['DateTime'])
 
-    dt = dt[(dt['Efficiency'] > 0)]
+    df = dataframe.sort_values(by=['DateTime'])
+
+    df = df[["DateTime", "Efficiency"]].reset_index(drop=True)
+
+    df = df[(df['Efficiency'] > 0)]
 
 
     dt_com = com
-    min_dt = dt["DateTime"].min()
-    max_dt = dt["DateTime"].max()
+    min_dt = df["DateTime"].min()
+    max_dt = df["DateTime"].max()
     
     min_com = dt_com[eff].min()
     max_com = dt_com[eff].max()
@@ -31,8 +34,8 @@ def scatterplot_efficiency_date(dt, com, eff):
     fig = go.Figure()
     
     fig.add_trace(go.Scatter(
-                     x=dt["DateTime"],
-                     y=dt["Efficiency"],
+                     x=df["DateTime"],
+                     y=df["Efficiency"],
                      name="Actual Data",
                      mode='markers',
                      marker_color='lightskyblue',
@@ -57,24 +60,24 @@ def scatterplot_efficiency_date(dt, com, eff):
     st.plotly_chart(fig, use_container_width=True)  
 
 
-def scatterplot_discharge_power(dt, com):
+def scatterplot_discharge_power(dataframe, com):
 
-    dt['DateTime'] = pd.to_datetime(dt['DateTime'])
+    dataframe['DateTime'] = pd.to_datetime(dataframe['DateTime'])
 
     # dt = dt.sort_values(by=['DateTime'])
 
-    dt = dt[["Discharge", "Power Output", "Efficiency"]
+    df = dataframe[["Discharge", "Power Output", "Efficiency"]
             ].reset_index(drop=True)
 
-    dt = dt[(dt['Efficiency'] > 0)]
-    dt = dt.sort_values(by=['Power Output'])
+    df = df[(df['Efficiency'] > 0)]
+    df = df.sort_values(by=['Power Output'])
     dt_com = com
     
     fig = go.Figure()
     
     fig.add_trace(go.Scatter(
-                     x=dt["Power Output"],
-                     y=dt["Discharge"],
+                     x=df["Power Output"],
+                     y=df["Discharge"],
                      name="Actual Data",
                      mode='markers',
                      marker_color='lightskyblue',
@@ -104,24 +107,24 @@ def scatterplot_discharge_power(dt, com):
     st.plotly_chart(fig, use_container_width=True)  
 
 
-def scatterplot_theoretical_actual_power(dt):
+def scatterplot_theoretical_actual_power(dataframe):
 
-    dt['DateTime'] = pd.to_datetime(dt['DateTime'])
+    dataframe['DateTime'] = pd.to_datetime(dataframe['DateTime'])
 
    
 
-    dt = dt[["Theoretical Power", "Power Output", "Efficiency"]
+    df = dataframe[["Theoretical Power", "Power Output", "Efficiency"]
             ].reset_index(drop=True)
 
-    dt = dt[(dt['Efficiency'] > 0)]
-    dt = dt.sort_values(by=['Power Output'])
+    df = df[(df['Efficiency'] > 0)]
+    df = df.sort_values(by=['Power Output'])
     
     
     fig = go.Figure()
     
     fig.add_trace(go.Scatter(
-                     x=dt["Power Output"],
-                     y=dt["Theoretical Power"],
+                     x=df["Power Output"],
+                     y=df["Theoretical Power"],
                      mode='markers',
                      marker_color='lightskyblue',
                      marker_size=8,
@@ -142,24 +145,23 @@ def scatterplot_theoretical_actual_power(dt):
     st.plotly_chart(fig, use_container_width=True)  
 
 
-def scatterplot_discharge_efficiency(dt):
+def scatterplot_discharge_efficiency(dataframe):
 
-    dt['DateTime'] = pd.to_datetime(dt['DateTime'])
+    dataframe['DateTime'] = pd.to_datetime(dataframe['DateTime'])
 
    
 
-    dt = dt[["Discharge", "Efficiency"]
-            ].reset_index(drop=True)
+    df = dataframe[["Discharge", "Efficiency"]].reset_index(drop=True)
 
-    dt = dt[(dt['Efficiency'] > 0)]
-    dt = dt.sort_values(by=['Efficiency'])
+    df = df[(df['Efficiency'] > 0)]
+    df = df.sort_values(by=['Efficiency'])
     
     
     fig = go.Figure()
     
     fig.add_trace(go.Scatter(
-                     x=dt["Discharge"],
-                     y=dt["Efficiency"],
+                     x=df["Discharge"],
+                     y=df["Efficiency"],
                      mode='markers',
                      marker_color='lightskyblue',
                      marker_size=8,
@@ -173,25 +175,25 @@ def scatterplot_discharge_efficiency(dt):
     st.plotly_chart(fig, use_container_width=True)  
 
 
-def scatterplot_efficiency_power(dt, com, eff):
+def scatterplot_efficiency_power(dataframe, com, eff):
 
-    dt['DateTime'] = pd.to_datetime(dt['DateTime'])
+    dataframe['DateTime'] = pd.to_datetime(dataframe['DateTime'])
 
     # dt = dt.sort_values(by=['DateTime'])
     
-    dt = dt[["Discharge", "Power Output", "Efficiency"]
+    df = dataframe[["Discharge", "Power Output", "Efficiency"]
             ].reset_index(drop=True)
 
-    dt = dt[(dt['Efficiency'] > 0)]
-    dt = dt.sort_values(by=['Power Output'])
+    df = df[(df['Efficiency'] > 0)]
+    df = df.sort_values(by=['Power Output'])
 
     dt_com = com
     
     fig = go.Figure()
     
     fig.add_trace(go.Scatter(
-                     x=dt["Power Output"],
-                     y=dt["Efficiency"],
+                     x=df["Power Output"],
+                     y=df["Efficiency"],
                      name="Actual Data",
                      mode='markers',
                      marker_color='lightskyblue',
@@ -267,14 +269,23 @@ def view_histogram(dataframe): ## Efficiency, Power Output  Discharge
 
 def view_3d_power_efficiency_discharge(dataframe):
     df = dataframe[(dataframe['Efficiency'] > 0)]
+
+    df = df.sort_values(by=['DateTime'])
+
     df['Month'] = pd.to_datetime(df['DateTime']).dt.strftime('%B')
-  
+
+    ordered_months = ["January", "February", "March", "April", "May", "June",
+      "July", "August", "September", "October", "November", "December"]
+
+    df['to_sort']=df['Month'].apply(lambda x:ordered_months.index(x))
+    df = df.sort_values('to_sort')  
 
     fig = px.scatter_3d(df, x='Discharge', y='Power Output', z='Efficiency', color='Month')
 
     fig.update_layout(title_text="Efficiency, Power Output and Discharge",title_x=0,
-                        margin=dict(l=0,r=0,b=15,t=100), 
+                        margin=dict(l=0,r=0,b=0,t=0), 
                         legend=dict(orientation="h",yanchor="bottom",y=0.9,xanchor="right",x=0.99))
 
     st.plotly_chart(fig, use_container_width=True) 
+
 
