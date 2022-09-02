@@ -9,9 +9,6 @@ import seaborn as sns
 
 from comm_data import *
 
-from model import *
-
-
 
 def scatterplot_efficiency_date(dt, com, eff):
 
