@@ -1,5 +1,3 @@
-from doctest import DocTest
-from tkinter.tix import DirTree
 import streamlit as st
 from PIL import Image
 from view import *
