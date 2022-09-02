@@ -56,7 +56,9 @@ def scatterplot_efficiency_date(dataframe, com, eff):
     fig.update_layout(title_text="Hourly Efficiency",title_x=0, xaxis_title="Date", yaxis_title="Efficiency",
                         margin=dict(l=0,r=10,b=10,t=30),
                         legend=dict(orientation="h",yanchor="bottom",y=0.9,xanchor="right",x=0.99))
-
+    fig.update_xaxes(showgrid=True, gridwidth=1, gridcolor='LightPink')
+    fig.update_yaxes(showgrid=True, gridwidth=1, gridcolor='LightPink')
+    
     st.plotly_chart(fig, use_container_width=True)  
 
 
@@ -103,7 +105,9 @@ def scatterplot_discharge_power(dataframe, com):
     fig.update_layout(title_text="Disharge and Efficiency",title_x=0, xaxis_title="Power Output", yaxis_title="Discharge (cms)",
                         margin=dict(l=0,r=10,b=10,t=30), 
                         legend=dict(orientation="h",yanchor="bottom",y=0.9,xanchor="right",x=0.99))
-
+    fig.update_xaxes(showgrid=True, gridwidth=1, gridcolor='LightPink')
+    fig.update_yaxes(showgrid=True, gridwidth=1, gridcolor='LightPink')
+    
     st.plotly_chart(fig, use_container_width=True)  
 
 
@@ -141,7 +145,8 @@ def scatterplot_theoretical_actual_power(dataframe):
     fig.update_layout(title_text="Theoretical Power and Actual Power",title_x=0, xaxis_title="Actual Power", yaxis_title="Theoretical Power",
                         margin=dict(l=0,r=10,b=10,t=30), 
                         legend=dict(orientation="h",yanchor="bottom",y=0.9,xanchor="right",x=0.99))
-
+    fig.update_xaxes(showgrid=True, gridwidth=1, gridcolor='LightPink')
+    fig.update_yaxes(showgrid=True, gridwidth=1, gridcolor='LightPink')
     st.plotly_chart(fig, use_container_width=True)  
 
 
@@ -172,6 +177,8 @@ def scatterplot_discharge_efficiency(dataframe):
     fig.update_layout(title_text="Discharge and Efficiency",title_x=0, xaxis_title="Discharge", yaxis_title="Efficiency",
                         margin=dict(l=0,r=10,b=10,t=30), 
                         legend=dict(orientation="h",yanchor="bottom",y=0.9,xanchor="right",x=0.99))
+    fig.update_xaxes(showgrid=True, gridwidth=1, gridcolor='LightPink')
+    fig.update_yaxes(showgrid=True, gridwidth=1, gridcolor='LightPink')
     st.plotly_chart(fig, use_container_width=True)  
 
 
@@ -217,7 +224,9 @@ def scatterplot_efficiency_power(dataframe, com, eff):
     fig.update_layout(title_text="Efficiency and Power Output",title_x=0, xaxis_title="Power Output", yaxis_title="Efficiency",
                         margin=dict(l=0,r=10,b=10,t=30), 
                         legend=dict(orientation="h",yanchor="bottom",y=0.9,xanchor="right",x=0.99))
-
+    fig.update_xaxes(showgrid=True, gridwidth=1, gridcolor='LightPink')
+    fig.update_yaxes(showgrid=True, gridwidth=1, gridcolor='LightPink')
+    
     st.plotly_chart(fig, use_container_width=True)  
 
 
@@ -251,17 +260,20 @@ def view_histogram(dataframe): ## Efficiency, Power Output  Discharge
 
     fig.update_layout(title_text="Efficiency Histogram",title_x=0,
                         margin=dict(l=0,r=0,b=15,t=100))
+   
+    fig.update_yaxes(showgrid=True, gridwidth=1, gridcolor='LightPink')
 
     fig_1 = px.histogram(df, x="Power Output", nbins=20)
     
     fig_1.update_layout(title_text="Power Output Histogram",title_x=0,
                         margin=dict(l=0,r=0,b=15,t=100))
-
+    fig_1.update_yaxes(showgrid=True, gridwidth=1, gridcolor='LightPink')
     fig_2 = px.histogram(df, x="Discharge", nbins=20)
     
     fig_2.update_layout(title_text="Discharge Histogram",title_x=0,
                         margin=dict(l=0,r=0,b=15,t=100))                                           
-
+    fig_2.update_yaxes(showgrid=True, gridwidth=1, gridcolor='LightPink')
+    
     h1.plotly_chart(fig, use_container_width=True)
     h2.plotly_chart(fig_1, use_container_width=True)
     h3.plotly_chart(fig_2, use_container_width=True)
