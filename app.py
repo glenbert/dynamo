@@ -3,13 +3,6 @@ from PIL import Image
 from view import *
 from model import *
 
-import numpy as np
-import pandas as pd
-import matplotlib.pyplot as plt
-import plotly.express as px
-from datetime import datetime as dt
-import plotly.graph_objects as go
-
 
 st.set_page_config(page_title='DyNaMo',  layout='wide', page_icon=':chart_with_upwards_trend:')
 img_logo = Image.open('hedcor-logo.png')
